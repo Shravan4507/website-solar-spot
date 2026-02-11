@@ -153,17 +153,13 @@
 }
 
 .detail-text {
-    font-size: 1.1rem;
+    font-size: clamp(0.7rem, 3.2vw, 1.1rem);
     color: rgba(255, 255, 255, 0.9);
     font-family: 'JetBrains Mono', monospace;
+    word-break: keep-all;
     overflow-wrap: break-word;
-    word-break: break-word;
-}
-
-@media (max-width: 480px) {
-    .detail-text {
-        font-size: 0.85rem;
-    }
+    text-align: center;
+    width: 100%;
 }
 
 .contact-action-btn {
