@@ -68,6 +68,9 @@ const Login = () => {
                 </button>
 
                 <div className="login-footer">
+                    <button className="back-to-base" onClick={() => navigate('/home')}>
+                        RETURN TO COMMAND
+                    </button>
                     <a href="/terms">Privacy Policy & Terms & Conditions</a>
                 </div>
             </motion.div>

@@ -1,11 +1,10 @@
 .safety-guide-page {
     min-height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0);
     color: #fff;
     padding: 100px 20px;
     font-family: 'Iceland', sans-serif;
     position: relative;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.95);
 }
 
 .safety-content {
@@ -15,10 +14,15 @@
 
 /* PROFESSIONAL HEADER */
 .safety-intro {
-    border-bottom: 2px solid rgba(255, 140, 0, 0.4);
-    padding-bottom: 60px;
+    border-bottom: 4px solid rgba(255, 140, 0, 0.8);
+    border-left: 1px solid rgba(255, 140, 0, 0.6);
+    border-right: 1px solid rgba(255, 140, 0, 0.6);
+    border-top: 1px solid rgba(255, 140, 0, 0.4);
+    padding: 30px;
     margin-bottom: 60px;
     margin-top: 50px;
+    border-radius: 3rem;
+    background: rgba(0, 0, 0, 0.90);
 }
 
 .protocol-tag {
@@ -29,7 +33,7 @@
     margin-bottom: 10px;
     display: inline-block;
     border: 1px solid rgba(255, 140, 0, 0.3);
-    padding: 5px 15px;
+    padding: 10px 15px;
     border-radius: 3rem;
 }
 
@@ -46,8 +50,9 @@
 }
 
 .safety-intro p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 1.2rem;
+    font-weight: 500;
     max-width: 800px;
     line-height: 1.5;
 }
@@ -60,13 +65,15 @@
     /* Creates clean border lines between items */
     background: rgba(255, 255, 255, 0);
     /* Border color */
-    border: none;
 }
 
 .protocol-card {
-    background: rgba(0, 0, 0, 0.85);
-    padding: 50px 40px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.90);
+    padding: 30px;
+    border-bottom: 4px solid rgba(255, 140, 0, 0.8);
+    border-left: 1px solid rgba(255, 140, 0, 0.6);
+    border-right: 1px solid rgba(255, 140, 0, 0.6);
+    border-top: 1px solid rgba(255, 140, 0, 0.4);
     border-radius: 3rem;
     display: flex;
     flex-direction: column;
@@ -84,7 +91,7 @@
 }
 
 .protocol-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
@@ -93,8 +100,8 @@
 }
 
 .card-content {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 1.2rem;
     line-height: 1.6;
     margin: 0;
 }
@@ -110,14 +117,14 @@
 .warning-label {
     font-family: 'Iceland', sans-serif;
     color: #ff8c00;
-    font-size: 0.9rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .warning-text {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.3);
-    font-weight: 600;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-weight: 500;
     text-transform: uppercase;
 }
 
