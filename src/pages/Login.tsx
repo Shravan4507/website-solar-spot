@@ -1,31 +1,38 @@
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { auth, googleProvider } from '../firebase';
-import { signInWithRedirect } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import './Login.css';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { isLoggedIn, isAdmin, isRegistered, loading } = useAuth();
+    const { login, checkRegistration } = useAuth();
 
-    useEffect(() => {
-        if (!loading && isLoggedIn) {
-            if (isAdmin) {
-                navigate('/admin-dashboard');
-            } else if (isRegistered) {
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+
+            const names = user.displayName?.split(' ') || [];
+            const userData = {
+                uid: user.uid,
+                firstName: names[0] || '',
+                lastName: names.slice(1).join(' ') || '',
+                email: user.email || '',
+                profilePic: user.photoURL || '',
+                isAdmin: false
+            };
+
+            login(userData);
+
+            // Check if user is already registered
+            const registered = await checkRegistration(user.uid);
+            if (registered) {
                 navigate('/dashboard');
             } else {
                 navigate('/register');
             }
-        }
-    }, [isLoggedIn, isAdmin, isRegistered, loading, navigate]);
-
-    const handleGoogleLogin = async () => {
-        try {
-            await signInWithRedirect(auth, googleProvider);
-            // After redirect, AuthProvider will handle the state change
         } catch (error) {
             console.error("Error signing in with Google:", error);
         }

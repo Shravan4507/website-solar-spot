@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { auth, db } from '../firebase';
-import { onAuthStateChanged, signOut, getRedirectResult } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
 interface UserData {
@@ -61,74 +61,60 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             setLoading(false);
         }, 7000);
 
-        const bootSequence = async () => {
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            clearTimeout(failSafeTimer);
+            setLoading(true);
             try {
-                // Tactical Capture: Force check the outcome of the redirect
-                // This is the most reliable way to beat ad-blockers/Brave shields
-                await getRedirectResult(auth);
-            } catch (error) {
-                console.warn("Auth Handshake Interrupted by Client Shields:", error);
-            }
+                if (firebaseUser) {
+                    const names = firebaseUser.displayName?.split(' ') || [];
 
-            const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-                clearTimeout(failSafeTimer);
-                setLoading(true);
-                try {
-                    if (firebaseUser) {
-                        const names = firebaseUser.displayName?.split(' ') || [];
-
-                        // Defensive Admin Check
-                        let isAdminStatus = false;
-                        try {
-                            const adminDoc = await getDoc(doc(db, "admins", firebaseUser.uid));
-                            isAdminStatus = adminDoc.exists();
-                        } catch (adminError) {
-                            console.warn("Permission restricted for ADMIN_CHECK on this frequency.");
-                        }
-
-                        const userData = {
-                            uid: firebaseUser.uid,
-                            firstName: names[0] || (isAdminStatus ? 'Admin' : 'Observer'),
-                            lastName: names.slice(1).join(' ') || '',
-                            email: firebaseUser.email || '',
-                            profilePic: firebaseUser.photoURL || '',
-                            isAdmin: isAdminStatus
-                        };
-                        setUser(userData);
-
-                        // Defensive Registration Check
-                        try {
-                            const regData = await checkRegistration(firebaseUser.uid);
-                            if (regData) {
-                                setIsRegistered(true);
-                                setRegistrationData(regData);
-                            } else {
-                                setIsRegistered(false);
-                                setRegistrationData(null);
-                            }
-                        } catch (regError) {
-                            console.error("Registration check failed:", regError);
-                        }
-                    } else {
-                        setUser(null);
-                        setIsRegistered(false);
-                        setRegistrationData(null);
+                    // Defensive Admin Check
+                    let isAdminStatus = false;
+                    try {
+                        const adminDoc = await getDoc(doc(db, "admins", firebaseUser.uid));
+                        isAdminStatus = adminDoc.exists();
+                    } catch (adminError) {
+                        console.warn("Permission restricted for ADMIN_CHECK on this frequency.");
                     }
-                } catch (globalError) {
-                    console.error("Mission boot sequence fatal error:", globalError);
-                } finally {
-                    setLoading(false);
+
+                    const userData = {
+                        uid: firebaseUser.uid,
+                        firstName: names[0] || (isAdminStatus ? 'Admin' : 'Observer'),
+                        lastName: names.slice(1).join(' ') || '',
+                        email: firebaseUser.email || '',
+                        profilePic: firebaseUser.photoURL || '',
+                        isAdmin: isAdminStatus
+                    };
+                    setUser(userData);
+
+                    // Defensive Registration Check
+                    try {
+                        const regData = await checkRegistration(firebaseUser.uid);
+                        if (regData) {
+                            setIsRegistered(true);
+                            setRegistrationData(regData);
+                        } else {
+                            setIsRegistered(false);
+                            setRegistrationData(null);
+                        }
+                    } catch (regError) {
+                        console.error("Registration check failed:", regError);
+                    }
+                } else {
+                    setUser(null);
+                    setIsRegistered(false);
+                    setRegistrationData(null);
                 }
-            });
-
-            return unsubscribe;
-        };
-
-        const authUnsubscribePromise = bootSequence();
+            } catch (globalError) {
+                console.error("Mission boot sequence fatal error:", globalError);
+            } finally {
+                setLoading(false);
+            }
+        });
 
         return () => {
+            unsubscribe();
             clearTimeout(failSafeTimer);
-            authUnsubscribePromise.then(unsubscribe => unsubscribe());
         };
     }, []);
 
