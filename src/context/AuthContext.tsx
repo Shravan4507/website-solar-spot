@@ -55,7 +55,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     useEffect(() => {
+        // FAIL-SAFE: Force-clear loading state after 5 seconds if connection is blocked
+        const failSafeTimer = setTimeout(() => {
+            console.warn("Signal delay detected. Initiating fail-safe boot sequence...");
+            setLoading(false);
+        }, 5000);
+
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            clearTimeout(failSafeTimer);
             setLoading(true);
             try {
                 if (firebaseUser) {
@@ -105,7 +112,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             }
         });
 
-        return () => unsubscribe();
+        return () => {
+            unsubscribe();
+            clearTimeout(failSafeTimer);
+        };
     }, []);
 
     const login = (data: UserData) => {
