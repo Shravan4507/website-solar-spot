@@ -1,0 +1,195 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    box-sizing: border-box;
+    z-index: 1000;
+    background: transparent;
+    border-bottom: none;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    width: 200px;
+}
+
+.nav-left a,
+.nav-right a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-right {
+    justify-content: flex-end;
+}
+
+.tooltip-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-tooltip {
+    position: absolute;
+    top: 130%;
+    right: 0;
+    background: rgba(255, 140, 0, 0.55);
+    color: #000000;
+    padding: 8px 16px;
+    border-radius: 3rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: tooltipFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.nav-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: 30px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent rgba(255, 140, 0, 0.55) transparent;
+}
+
+@keyframes tooltipFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.college-logo {
+    width: 60px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.nav-logo {
+    width: 100px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.college-logo {
+    opacity: 1;
+}
+
+.filter-solar {
+    filter:
+        sepia(100%) saturate(350%) hue-rotate(-15deg) brightness(1.15) drop-shadow(0 0 15px rgba(255, 140, 0, 0.4));
+    opacity: 0.9;
+}
+
+.nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.25rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 10px 0;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: #ff8c00;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-item:hover {
+    color: #ffffff;
+    letter-spacing: 0.35rem;
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
+
+.nav-item.highlight {
+    color: #ff8c00;
+    font-weight: 600;
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: rgba(255, 140, 0, 0);
+}
+
+.nav-item.highlight:hover {
+    border-color: #ff8c00;
+}
+
+.logout-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    color: rgba(235, 77, 75, 0.6) !important;
+}
+
+.logout-btn:hover {
+    color: #eb4d4b !important;
+}
+
+.logout-btn::after {
+    background: #eb4d4b !important;
+}
+
+@media (max-width: 900px) {
+    .nav-center {
+        display: none;
+        /* Hide links on mobile for now */
+    }
+
+    .navbar {
+        height: 80px;
+        padding: 35px 15px 15px 20px;
+    }
+
+    .nav-logo {
+        width: 80px;
+    }
+
+    .nav-left,
+    .nav-right {
+        width: auto;
+    }
+}

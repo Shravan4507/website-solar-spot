@@ -1,0 +1,157 @@
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    font-family: 'Iceland', sans-serif;
+}
+
+.login-card {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 3rem;
+    padding: 60px 40px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.login-header {
+    margin-bottom: 40px;
+}
+
+.login-logo {
+    width: 250px;
+    height: auto;
+    margin-bottom: -15px;
+}
+
+.filter-solar {
+    filter: sepia(100%) saturate(350%) hue-rotate(-15deg) brightness(1.15) drop-shadow(0 0 15px rgba(255, 140, 0, 0.4));
+}
+
+.login-header h1 {
+    font-size: 2.8rem;
+    color: #ffffff;
+    margin-bottom: 12px;
+    letter-spacing: 0.1rem;
+}
+
+.login-header p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    letter-spacing: 0.05rem;
+}
+
+.google-login-button {
+    width: 100%;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 100px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    font-family: 'Outfit', sans-serif;
+}
+
+.google-login-button:active {
+    transform: scale(0.98);
+}
+
+.google-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.login-footer {
+    margin-top: 40px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+}
+
+.login-footer a {
+    color: #ff8c00;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Solar flare decoration */
+.card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 600px) {
+    .login-page {
+        padding: 15px;
+        align-items: flex-start;
+        padding-top: 100px;
+    }
+
+    .login-card {
+        padding: 40px 20px;
+        border-radius: 2.5rem;
+        background: rgba(0, 0, 0, 0.8) !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    .login-logo {
+        width: 180px;
+        margin-bottom: -10px;
+    }
+
+    .login-header h1 {
+        font-size: 2rem;
+        letter-spacing: 0.15rem;
+    }
+
+    .login-header p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .login-header {
+        margin-bottom: 30px;
+    }
+
+    .google-login-button {
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+
+    .login-footer {
+        margin-top: 30px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-height: 700px) and (orientation: portrait) {
+    .login-page {
+        padding-top: 60px;
+    }
+}

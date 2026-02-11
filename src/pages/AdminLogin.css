@@ -1,0 +1,247 @@
+.admin-login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Iceland', sans-serif;
+    padding: 20px;
+}
+
+/* Cyberpunk Scannline Effect */
+.security-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            transparent 50%,
+            rgba(0, 0, 0, 0.2) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.admin-login-card {
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    z-index: 10;
+}
+
+.admin-card-inner {
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    border-radius: 3rem;
+    padding: 40px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 140, 0, 0.1);
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.admin-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: -10px;
+}
+
+.filter-solar {
+    filter: sepia(100%) saturate(350%) hue-rotate(-15deg) brightness(1.15) drop-shadow(0 0 15px rgba(255, 140, 0, 0.4));
+}
+
+.admin-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 0.4rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.admin-header .subtitle {
+    font-size: 1rem;
+    color: #ff8c00;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 5px;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-field label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.15rem;
+}
+
+.input-field input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 3rem;
+    padding: 15px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    transition: all 0.3s ease;
+}
+
+.input-field input:focus {
+    outline: none;
+    border-color: #ff8c00;
+    background: rgba(255, 140, 0, 0.05);
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.1);
+}
+
+.auth-error {
+    color: #eb4d4b;
+    font-size: 0.95rem;
+    text-align: center;
+    background: rgba(235, 77, 75, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(235, 77, 75, 0.2);
+}
+
+.admin-submit-btn {
+    background: #ff8c00;
+    color: #000;
+    border: none;
+    border-radius: 3rem;
+    padding: 18px;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-submit-btn:hover:not(:disabled) {
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4);
+}
+
+.admin-submit-btn:active {
+    transform: scale(0.98);
+}
+
+.admin-submit-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+    transition: 0.5s;
+}
+
+.admin-submit-btn:hover .btn-glow {
+    left: 100%;
+}
+
+.admin-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+}
+
+.back-link {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: inherit;
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: #ffffff;
+}
+
+.system-status {
+    font-size: 0.8rem;
+    color: rgba(46, 213, 115, 0.4);
+    letter-spacing: 0.1rem;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 600px) {
+    .admin-login-page {
+        padding: 15px;
+        align-items: flex-start;
+        padding-top: 80px;
+    }
+
+    .admin-card-inner {
+        padding: 40px 20px;
+        border-radius: 2.5rem;
+    }
+
+    .admin-logo {
+        width: 160px;
+        margin-bottom: -10px;
+    }
+
+    .admin-header h1 {
+        font-size: 1.8rem;
+        letter-spacing: 0.2rem;
+    }
+
+    .admin-header .subtitle {
+        font-size: 0.8rem;
+    }
+
+    .input-field input {
+        font-size: 1.1rem;
+        padding: 12px 15px;
+    }
+
+    .admin-submit-btn {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+
+    .admin-footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+@media (max-height: 700px) and (orientation: portrait) {
+    .admin-login-page {
+        padding-top: 60px;
+    }
+}

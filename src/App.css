@@ -1,0 +1,158 @@
+.app-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #000000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.app-container::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+}
+
+.background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.center-logo {
+  width: 320px;
+  height: auto;
+  max-width: 80vw;
+  filter:
+    sepia(100%) saturate(350%) hue-rotate(-15deg) brightness(1.15) drop-shadow(0 0 50px rgba(255, 120, 0, 0.4));
+  user-select: none;
+  animation: logoFadeIn 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes logoFadeIn {
+  0% {
+    opacity: 0;
+    filter:
+      sepia(100%) saturate(350%) hue-rotate(-15deg) brightness(1.15) drop-shadow(0 0 50px rgba(255, 120, 0, 0.4)) blur(30px);
+    transform: scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    filter:
+      sepia(100%) saturate(350%) hue-rotate(-15deg) brightness(1.15) drop-shadow(0 0 50px rgba(255, 120, 0, 0.4)) blur(0px);
+    transform: scale(1);
+  }
+}
+
+.get-started {
+  position: fixed;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  color: rgba(255, 140, 0, 0.9);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.6rem;
+  text-transform: uppercase;
+  z-index: 40;
+  opacity: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 20px;
+  white-space: nowrap;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: buttonFadeIn 1s ease-out 0.5s forwards;
+}
+
+.get-started:hover {
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+}
+
+
+@keyframes buttonFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) translateX(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* Hide button when transition is active */
+.get-started.hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* Mobile Responsiveness for Intro */
+@media (max-width: 900px) {
+  .get-started {
+    top: auto;
+    bottom: 15%;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 0.4rem;
+    padding: 15px;
+    animation: buttonFadeInMobile 1s ease-out 0.5s forwards;
+  }
+
+  @keyframes buttonFadeInMobile {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  .center-logo {
+    width: 250px;
+  }
+}
