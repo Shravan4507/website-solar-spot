@@ -56,37 +56,53 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-            if (firebaseUser) {
-                const names = firebaseUser.displayName?.split(' ') || [];
-                // SECURE ADMIN CHECK: Verify UID against authoritative 'admins' collection
-                const adminDoc = await getDoc(doc(db, "admins", firebaseUser.uid));
-                const isAdminStatus = adminDoc.exists();
+            setLoading(true);
+            try {
+                if (firebaseUser) {
+                    const names = firebaseUser.displayName?.split(' ') || [];
 
-                const userData = {
-                    uid: firebaseUser.uid,
-                    firstName: names[0] || (isAdminStatus ? 'Admin' : 'Observer'),
-                    lastName: names.slice(1).join(' ') || '',
-                    email: firebaseUser.email || '',
-                    profilePic: firebaseUser.photoURL || '',
-                    isAdmin: isAdminStatus
-                };
-                setUser(userData);
+                    // Defensive Admin Check
+                    let isAdminStatus = false;
+                    try {
+                        const adminDoc = await getDoc(doc(db, "admins", firebaseUser.uid));
+                        isAdminStatus = adminDoc.exists();
+                    } catch (adminError) {
+                        console.warn("Permission restricted for ADMIN_CHECK on this frequency.");
+                    }
 
-                // Check if user is already registered in Firestore
-                const regData = await checkRegistration(firebaseUser.uid);
-                if (regData) {
-                    setIsRegistered(true);
-                    setRegistrationData(regData);
+                    const userData = {
+                        uid: firebaseUser.uid,
+                        firstName: names[0] || (isAdminStatus ? 'Admin' : 'Observer'),
+                        lastName: names.slice(1).join(' ') || '',
+                        email: firebaseUser.email || '',
+                        profilePic: firebaseUser.photoURL || '',
+                        isAdmin: isAdminStatus
+                    };
+                    setUser(userData);
+
+                    // Defensive Registration Check
+                    try {
+                        const regData = await checkRegistration(firebaseUser.uid);
+                        if (regData) {
+                            setIsRegistered(true);
+                            setRegistrationData(regData);
+                        } else {
+                            setIsRegistered(false);
+                            setRegistrationData(null);
+                        }
+                    } catch (regError) {
+                        console.error("Registration check failed:", regError);
+                    }
                 } else {
+                    setUser(null);
                     setIsRegistered(false);
                     setRegistrationData(null);
                 }
-            } else {
-                setUser(null);
-                setIsRegistered(false);
-                setRegistrationData(null);
+            } catch (globalError) {
+                console.error("Mission boot sequence fatal error:", globalError);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         });
 
         return () => unsubscribe();
