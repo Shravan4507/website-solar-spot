@@ -7,11 +7,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     box-sizing: border-box;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 1000;
-    background: transparent;
-    border-bottom: none;
+    background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.8));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom-left-radius: 3rem;
+    border-bottom-right-radius: 3rem;
 }
 
 .nav-left,
@@ -185,7 +192,17 @@
     }
 
     .nav-logo {
-        width: 80px;
+        padding-left: 5px;
+        padding-bottom: 10px;
+        padding-right: 5px;
+        width: 70px;
+    }
+
+    .college-logo {
+        padding-left: 5px;
+        padding-bottom: 10px;
+        padding-right: 5px;
+        width: 40px;
     }
 
     .nav-left,

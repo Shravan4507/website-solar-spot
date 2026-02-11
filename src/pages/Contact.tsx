@@ -65,18 +65,22 @@ const Contact = () => {
                                         <span className="detail-icon">Cell Phone</span>
                                         <span className="detail-text">{member.contact}</span>
                                     </div>
-                                    <div className="detail-item">
-                                        <span className="detail-icon">Email</span>
-                                        <span className="detail-text">{member.email}</span>
-                                    </div>
                                 </div>
 
-                                <button
-                                    className="contact-action-btn"
-                                    onClick={() => window.location.href = `tel:${member.contact}`}
-                                >
-                                    Call {member.name}
-                                </button>
+                                <div className="card-actions">
+                                    <button
+                                        className="contact-action-btn"
+                                        onClick={() => window.location.href = `tel:${member.contact}`}
+                                    >
+                                        CALL {member.name}
+                                    </button>
+                                    <button
+                                        className="contact-action-btn email-btn"
+                                        onClick={() => window.location.href = `mailto:${member.email}`}
+                                    >
+                                        EMAIL {member.name}
+                                    </button>
+                                </div>
                             </div>
                         </motion.div>
                     ))}
