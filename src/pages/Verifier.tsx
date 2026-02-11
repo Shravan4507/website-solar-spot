@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import { Html5Qrcode } from 'html5-qrcode';
 import { motion, AnimatePresence } from 'framer-motion';
 import { verifyPassToken } from '../utils/security';
 import PageTransition from '../components/effects/PageTransition';
@@ -22,7 +22,7 @@ const Verifier: React.FC = () => {
     const [scanResult, setScanResult] = useState<{ status: 'success' | 'error' | 'duplicate', message: string, user?: VerifiedUser } | null>(null);
     const [scannedTickets, setScannedTickets] = useState<Set<string>>(new Set());
     const [isDragging, setIsDragging] = useState(false);
-    const scannerRef = useRef<Html5QrcodeScanner | null>(null);
+    const scannerRef = useRef<Html5Qrcode | null>(null);
 
     // PERSISTENCE: Load from LocalStorage on mount
     useEffect(() => {
@@ -107,23 +107,29 @@ const Verifier: React.FC = () => {
 
     useEffect(() => {
         if (isManifestLoaded && !scannerRef.current) {
-            const scanner = new Html5QrcodeScanner(
-                "reader",
+            const html5QrCode = new Html5Qrcode("reader");
+
+            html5QrCode.start(
+                { facingMode: "environment" },
                 {
                     fps: 10,
                     qrbox: { width: 250, height: 250 },
                     aspectRatio: 1.0
                 },
-                /* verbose= */ false
-            );
+                onScanSuccess,
+                onScanError
+            ).catch(err => {
+                console.error("Sensor ignition failed:", err);
+            });
 
-            scanner.render(onScanSuccess, onScanError);
-            scannerRef.current = scanner;
+            scannerRef.current = html5QrCode;
         }
 
         return () => {
             if (scannerRef.current) {
-                scannerRef.current.clear().catch(e => console.error("Scanner cleanup error:", e));
+                if (scannerRef.current.isScanning) {
+                    scannerRef.current.stop().catch(e => console.error("Scanner stop error:", e));
+                }
                 scannerRef.current = null;
             }
         };
@@ -187,7 +193,9 @@ const Verifier: React.FC = () => {
             setScannedTickets(new Set());
             setIsManifestLoaded(false);
             if (scannerRef.current) {
-                scannerRef.current.clear();
+                if (scannerRef.current.isScanning) {
+                    scannerRef.current.stop();
+                }
                 scannerRef.current = null;
             }
         }
