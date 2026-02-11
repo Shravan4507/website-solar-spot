@@ -15,7 +15,7 @@ const Contact = () => {
             name: "Antriksh Shah",
             role: "Chairman",
             contact: "+91 62694 03566",
-            email: "antriksh.shah@gmail.com",
+            email: "chairman.orbix@zealeducation.com",
             image: "/members/Antriksh.jpeg"
         }
     ];
