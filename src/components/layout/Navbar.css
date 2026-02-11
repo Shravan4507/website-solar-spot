@@ -121,9 +121,9 @@
 
 .nav-item {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.86);
     font-size: 0.75rem;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: 0.25rem;
     transition: all 0.3s ease;
     position: relative;
@@ -169,7 +169,8 @@
     border: none;
     cursor: pointer;
     font-family: inherit;
-    color: rgba(235, 77, 75, 0.6) !important;
+    font-weight: 600;
+    color: rgba(235, 77, 75, 0.96) !important;
 }
 
 .logout-btn:hover {
