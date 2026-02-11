@@ -156,6 +156,14 @@
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.9);
     font-family: 'JetBrains Mono', monospace;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+@media (max-width: 480px) {
+    .detail-text {
+        font-size: 0.85rem;
+    }
 }
 
 .contact-action-btn {
