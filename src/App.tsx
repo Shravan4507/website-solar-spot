@@ -13,6 +13,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import VenueMap from './pages/VenueMap';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 import Navbar from './components/layout/Navbar';
 import MobileNav from './components/layout/MobileNav';
 import Footer from './components/layout/Footer';
@@ -134,6 +135,8 @@ const MainApp = () => {
           <Route path="/contact" element={
             <Contact />
           } />
+          {/* Catch-all 404 Route */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
 
