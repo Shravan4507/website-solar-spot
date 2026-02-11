@@ -13,4 +13,19 @@ export default defineConfig({
       avif: { quality: 70 },
     }),
   ],
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('firebase')) return 'vendor-firebase';
+            if (id.includes('framer-motion')) return 'vendor-framer';
+            if (id.includes('xlsx') || id.includes('jspdf') || id.includes('html2canvas')) return 'vendor-export-tools';
+            return 'vendor'; // all other node_modules
+          }
+        }
+      }
+    }
+  }
 })
