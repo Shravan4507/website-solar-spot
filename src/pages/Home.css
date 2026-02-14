@@ -91,6 +91,8 @@
     letter-spacing: 0.25rem;
     color: #ff8c00;
     text-transform: uppercase;
+    white-space: nowrap;
+    width: fit-content;
 }
 
 .badge-dot {
@@ -353,6 +355,7 @@
     .event-badge {
         font-size: 0.7rem;
         letter-spacing: 0.15rem;
+        white-space: normal;
     }
 
     .detail-item .label {

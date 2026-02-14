@@ -27,7 +27,7 @@ const Intro = () => {
   const navigate = useNavigate();
   return (
     <PageTransition>
-      <div className="hero-section">
+      <div className="hero-section" onClick={() => navigate('/home')} style={{ cursor: 'pointer' }}>
         <div className="content-wrapper">
           <div className="logo-container">
             <img
@@ -36,7 +36,7 @@ const Intro = () => {
               className="center-logo"
             />
           </div>
-          <button className="get-started" onClick={() => navigate('/home')}>
+          <button className="get-started" onClick={(e) => { e.stopPropagation(); navigate('/home'); }}>
             GET STARTED
           </button>
         </div>
